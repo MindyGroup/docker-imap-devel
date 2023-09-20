@@ -28,6 +28,8 @@ Edit ```docker-compose.yml``` for set these environment variables:
 - MAILNAME: Mail domain (by default, `localdomain.test`)
 - MAIL_ADDRESS: Normal user mailbox email address (optional)
 - MAIL_PASS: Normal user mailbox password
+- DOVECOT_PUBLIC_NAMESPACE_PREFIX: The prefix for the public IMAP namespace
+  (by default none is set)
 
 ```
 docker-compose up
