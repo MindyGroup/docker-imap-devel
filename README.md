@@ -66,3 +66,9 @@ any email to any email address
 - **SMTP encryption:** `No`
 - **SMTP port:** `25`
 - **SMTP authentication:** `none`
+
+# Publish the Container Image to GitHub Packages
+
+```sh
+git push origin main:release
+```
