@@ -140,9 +140,6 @@ sed -i -e 's/^.*postmaster_address.*/  postmaster_address = '${POSTMASTER_ADDRES
 
 _log "Docker entrypoint configured"
 
-# Start syslog daemon
-/etc/init.d/rsyslog start
-
 # Start Postfix daemon
 /etc/init.d/postfix start
 
