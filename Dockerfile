@@ -1,6 +1,5 @@
 FROM ubuntu:22.04
 
-MAINTAINER antespi@gmail.com
 
 ENV MAILNAME=localdomain.test \
     MAIL_ADDRESS= \
