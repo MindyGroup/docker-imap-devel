@@ -1,35 +1,37 @@
-FROM ubuntu:22.04
+FROM ubuntu:16.04
 
 LABEL org.opencontainers.image.source=https://github.com/joeyates/docker-imap-devel
 
 ENV MAILNAME=localdomain.test \
-    MAIL_ADDRESS= \
-    MAIL_PASS= \
-    MAIL_FS_USER=docker \
-    MAIL_FS_HOME=/home/docker
+  MAIL_ADDRESS= \
+  MAIL_PASS= \
+  MAIL_ADDRESS2= \
+  MAIL_PASS2= \
+  MAIL_FS_USER=docker \
+  MAIL_FS_HOME=/home/docker
 
 RUN set -x; \
-    apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y \
-    && echo "postfix postfix/mailname string $MAILNAME" | debconf-set-selections \
-    && echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        postfix \
-        dovecot-core \
-        dovecot-imapd \
-        dovecot-lmtpd \
-        rsyslog \
-        iproute2 \
-    && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y \
-    && rm -rf /var/cache/apt/archives/* /var/cache/apt/*.bin /var/lib/apt/lists/* \
-    && rm -rf /usr/share/man/* && rm -rf /usr/share/doc/* \
-    && touch /var/log/auth.log \
-    # Create mail user
-    && adduser $MAIL_FS_USER --home $MAIL_FS_HOME --shell /bin/false --disabled-password --gecos "" \
-    && chown -R ${MAIL_FS_USER}: $MAIL_FS_HOME \
-    && usermod -aG $MAIL_FS_USER postfix \
-    && usermod -aG $MAIL_FS_USER dovecot \
-    && echo "Installed: OK"
+  apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y \
+  && echo "postfix postfix/mailname string $MAILNAME" | debconf-set-selections \
+  && echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  postfix \
+  dovecot-core \
+  dovecot-imapd \
+  dovecot-lmtpd \
+  rsyslog \
+  iproute2 \
+  && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y \
+  && rm -rf /var/cache/apt/archives/* /var/cache/apt/*.bin /var/lib/apt/lists/* \
+  && rm -rf /usr/share/man/* && rm -rf /usr/share/doc/* \
+  && touch /var/log/auth.log \
+  # Create mail user
+  && adduser $MAIL_FS_USER --home $MAIL_FS_HOME --shell /bin/false --disabled-password --gecos "" \
+  && chown -R ${MAIL_FS_USER}: $MAIL_FS_HOME \
+  && usermod -aG $MAIL_FS_USER postfix \
+  && usermod -aG $MAIL_FS_USER dovecot \
+  && echo "Installed: OK"
 
 ADD postfix /etc/postfix
 

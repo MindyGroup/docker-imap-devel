@@ -117,6 +117,13 @@ if [ -n "$MAIL_ADDRESS" ]; then
     _add_line "$MAIL_ADDRESS" "/$MAIL_ADDRESS/ $MAIL_ADDRESS" /etc/postfix/virtual_regexp
 fi
 
+# Create user account 2
+if [ -n "$MAIL_ADDRESS2" ]; then
+    _account_add "$MAIL_ADDRESS2" "$MAIL_PASS2"
+    _add_line "$MAIL_ADDRESS2" "/$MAIL_ADDRESS2/ $MAIL_ADDRESS2" /etc/postfix/virtual_regexp
+fi
+
+
 # Create debug account
 _account_add "$DEBUG_ADDRESS" "$DEBUG_PASS"
 
@@ -139,6 +146,10 @@ sed -i -e 's/^.*postmaster_address.*/  postmaster_address = '${POSTMASTER_ADDRES
 
 
 _log "Docker entrypoint configured"
+
+# Start syslog deamon
+# systemctl start rsyslog
+/etc/init.d/rsyslog start
 
 # Start Postfix daemon
 /etc/init.d/postfix start

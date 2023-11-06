@@ -15,3 +15,5 @@ services:
     - MAILNAME=example.org
     - MAIL_ADDRESS=address@example.org
     - MAIL_PASS=pass
+    - MAIL_ADDRESS2=address2@example.org
+    - MAIL_PASS2=pass
