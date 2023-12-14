@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  imap:
+    # Uncomment this for build image in local
+    build:
+      context: .
+    # image: ghcr.io/mindygroup/docker-imap-devel:release
+    container_name: imap
+    ports:
+    - "25:25"
+    - "143:143"
+    - "993:993"
+    environment:
+      MAILNAME: example.org
+      MAIL_ADDRESS: test@gmail.com
+      MAIL_PASS: pass
+      MAIL_ADDRESS2: mindygenai@gmail.com
+      MAIL_PASS2: pass
